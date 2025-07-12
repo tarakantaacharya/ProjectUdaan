@@ -1,7 +1,6 @@
 from typing import Dict, List, Optional
 import logging
 from models.translation_models import TranslationRequest, BulkTranslationRequest, TranslationResponse
-from data.translation_data import translations
 from utils.db_logger import log_translation
 from utils.lang_helper import detect_language, validate_language_code
 import uuid
@@ -12,7 +11,78 @@ logger = logging.getLogger(__name__)
 class TranslationService:
     def __init__(self):
         # Mock translation dictionary - in production, this would use Google Translate API
-        self.translations = translations
+        self.translations = {
+            'en': {
+                'ta': {
+                    'hello': 'வணக்கம்',
+                    'goodbye': 'வரவேற்கிறேன்',
+                    'thank you': 'நன்றி',
+                    'please': 'தயவுசெய்து',
+                    'how are you': 'நீங்கள் எப்படி இருக்கிறீர்கள்',
+                    'good morning': 'காலை வணக்கம்',
+                    'good night': 'இனிய இரவு',
+                    'yes': 'ஆம்',
+                    'no': 'இல்லை',
+                    'water': 'நீர்',
+                    'food': 'உணவு',
+                    'love': 'அன்பு',
+                    'family': 'குடும்பம்',
+                    'friend': 'நண்பன்',
+                    'book': 'புத்தகம்'
+                },
+                'hi': {
+                    'hello': 'नमस्ते',
+                    'goodbye': 'अलविदा',
+                    'thank you': 'धन्यवाद',
+                    'please': 'कृपया',
+                    'how are you': 'आप कैसे हैं',
+                    'good morning': 'सुप्रभात',
+                    'good night': 'शुभ रात्रि',
+                    'yes': 'हाँ',
+                    'no': 'नहीं',
+                    'water': 'पानी',
+                    'food': 'भोजन',
+                    'love': 'प्रेम',
+                    'family': 'परिवार',
+                    'friend': 'मित्र',
+                    'book': 'पुस्तक'
+                },
+                'kn': {
+                    'hello': 'ನಮಸ್ಕಾರ',
+                    'goodbye': 'ವಿದಾಯ',
+                    'thank you': 'ಧನ್ಯವಾದ',
+                    'please': 'ದಯವಿಟ್ಟು',
+                    'how are you': 'ನೀವು ಹೇಗಿದ್ದೀರಿ',
+                    'good morning': 'ಶುಭೋದಯ',
+                    'good night': 'ಶುಭ ರಾತ್ರಿ',
+                    'yes': 'ಹೌದು',
+                    'no': 'ಇಲ್ಲ',
+                    'water': 'ನೀರು',
+                    'food': 'ಆಹಾರ',
+                    'love': 'ಪ್ರೀತಿ',
+                    'family': 'ಕುಟುಂಬ',
+                    'friend': 'ಸ್ನೇಹಿತ',
+                    'book': 'ಪುಸ್ತಕ'
+                },
+                'bn': {
+                    'hello': 'হ্যালো',
+                    'goodbye': 'বিদায়',
+                    'thank you': 'ধন্যবাদ',
+                    'please': 'দয়া করে',
+                    'how are you': 'আপনি কেমন আছেন',
+                    'good morning': 'সুপ্রভাত',
+                    'good night': 'শুভ রাত্রি',
+                    'yes': 'হ্যাঁ',
+                    'no': 'না',
+                    'water': 'পানি',
+                    'food': 'খাবার',
+                    'love': 'ভালোবাসা',
+                    'family': 'পরিবার',
+                    'friend': 'বন্ধু',
+                    'book': 'বই'
+                }
+            }
+        }
     
     def translate_text(self, request: TranslationRequest) -> TranslationResponse:
         """Translate a single text"""
