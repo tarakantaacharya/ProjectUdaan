@@ -39,7 +39,7 @@ A lightweight, modular translation service built with **FastAPI** that supports 
 
 ## 🧭 Translation Flow Diagram
 
-![Translation Flow](docs/flowchart.png)
+<img src="docs/flowchart.png" alt="Translation Flow" width="500"/>
 
 ## 🏗️ Project Architecture
 
