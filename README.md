@@ -1,7 +1,6 @@
+### 🌍 Translation Microservice
 
 ````markdown
-# 🌍 Translation Microservice
-
 A lightweight, modular translation service built with **FastAPI** that supports multi-language translation and is ready for production extension.
 
 ---
