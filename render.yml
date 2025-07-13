@@ -3,6 +3,9 @@ services:
     name: translation-microservice
     env: docker
     plan: free
-    repo: https://github.com/tarakantaacharya/ProjectUdaan.git
+    repo: https://github.com/tarakantaacharya/Udaanproject.git
     branch: main
     autoDeploy: true
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/v1/health
