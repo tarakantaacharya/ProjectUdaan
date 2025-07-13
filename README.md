@@ -1,4 +1,5 @@
 
+
 <div align="center">
 
 # 🌍 Translation Microservice
@@ -10,44 +11,46 @@
 [![Docker](https://img.shields.io/badge/Dockerized-Ready-blue.svg)](https://www.docker.com/)
 [![SQLite](https://img.shields.io/badge/SQLite-Logging-lightgrey.svg)](https://sqlite.org/index.html)
 
-**Translate text effortlessly using clean APIs and a scalable backend**
-*Single • Bulk • Logged • Validated • Extendable*
+**Real-time multilingual text translation built for scalability, performance, and simplicity.**
+*Translate • Validate • Log • Scale*
 
-[📖 Docs](#-api-endpoints) • [🛠️ Docker Setup](#-docker-deployment) • [⚙️ Architecture](#-project-architecture) • [📂 Directory Structure](#-directory-structure)
+[📖 API Docs](#-api-endpoints) • [🐳 Docker Setup](#-docker-deployment) • [⚙️ Architecture](#️-project-architecture) • [📂 Full Overview](#-project-details)
 
 </div>
 
 ---
 
-## ✨ Features
+## 🎯 Project Summary
+
+A lightweight, scalable microservice built with **FastAPI**, enabling multilingual translation (English, Tamil, Hindi, Kannada, Bengali). Designed for production-readiness with clean modular architecture, persistent storage (SQLite), Docker support, and health monitoring.
+
+---
+
+## ✨ Key Features
 
 ✅ REST API for single and bulk translation
-🌐 Supports multiple languages: Tamil (`ta`), Hindi (`hi`), Kannada (`kn`), Bengali (`bn`)
-🧪 Input validation with Pydantic
-📚 SQLite logging for audit/history
-📦 Dockerized for easy deployment
-💥 Structured, scalable codebase
-📡 Health check endpoint
+🌐 Language Support: `ta`, `hi`, `kn`, `bn`
+📊 SQLite logging of every request
+🧩 Pydantic-based validation
+🔁 Batch support (up to 50 texts)
+📦 Docker-ready
+📡 Health monitoring endpoint
+📄 Auto-generated OpenAPI Docs
 
 ---
 
 ## 🚀 Quickstart
 
-### 📥 Installation
+### 📥 Install & Run
 
 ```bash
 git clone https://github.com/your-username/ProjectUdaan.git
 cd ProjectUdaan
 pip install -r requirements.txt
-```
-
-### ▶️ Run Locally
-
-```bash
 python main.py
 ```
 
-### 🐳 Run with Docker
+### 🐳 Docker Deployment
 
 ```bash
 docker-compose up -d
@@ -63,7 +66,18 @@ docker-compose up -d
 
 ---
 
-## 🧪 Sample API Requests
+## 📘 API Endpoints
+
+| Method | Endpoint                    | Description                     |
+| ------ | --------------------------- | ------------------------------- |
+| POST   | `/api/v1/translate`         | Translate a single text         |
+| POST   | `/api/v1/translate/bulk`    | Translate multiple texts        |
+| GET    | `/api/v1/translate/history` | Fetch translation logs          |
+| GET    | `/api/v1/health`            | Service & database health check |
+
+---
+
+## 🧪 Sample Usage
 
 ### 🔹 Single Translation
 
@@ -87,98 +101,162 @@ POST /api/v1/translate/bulk
 
 ---
 
-## 📘 API Endpoints
-
-| Method | Endpoint                    | Description              |
-| ------ | --------------------------- | ------------------------ |
-| `POST` | `/api/v1/translate`         | Translate a single text  |
-| `POST` | `/api/v1/translate/bulk`    | Translate multiple texts |
-| `GET`  | `/api/v1/translate/history` | Fetch translation logs   |
-| `GET`  | `/api/v1/health`            | Health check endpoint    |
-
----
-
 ## 🏗️ Project Architecture
 
-### 🧩 Core Components
-
-| Component   | Description                                           |
-| ----------- | ----------------------------------------------------- |
-| `main.py`   | Entry point, sets up FastAPI app and includes routers |
-| `routes/`   | Contains API endpoints for translation and health     |
-| `services/` | Business logic for translation and database handling  |
-| `models/`   | Pydantic schemas for request/response                 |
-| `utils/`    | Helpers for language validation and sanitization      |
-| `config/`   | Environment and settings management                   |
-| `tests/`    | Unit tests for translation logic                      |
-
----
-
-## 📁 Directory Structure
+A modular, scalable layout with a clean separation of concerns:
 
 ```
-TranslationMicroservice/
-├── config/
-│   └── settings.py
-├── models/
-│   └── translation_models.py
-├── routes/
-│   ├── health_routes.py
-│   └── translation_routes.py
-├── services/
-│   ├── database_service.py
-│   └── translation_service.py
-├── utils/
-│   ├── language_utils.py
-│   └── validation_utils.py
-├── tests/
-│   └── test_translation_service.py
-├── Dockerfile
-├── docker-compose.yml
-├── main.py
-├── requirements.txt
-└── README.md
+Translation Microservice
+├── API Layer (FastAPI)
+├── Business Logic Layer (Services)
+├── Data Models Layer (Pydantic)
+├── Data Persistence Layer (SQLite)
+└── Utility Layer (Helpers & Validators)
 ```
 
 ---
 
-## 🛠️ Production Considerations
+## 📂 Project Details
 
-1. 🔌 Integrate Google Translate API or OpenAI multilingual models
-2. 🛢️ Replace SQLite with PostgreSQL or MongoDB
-3. 🔐 Implement JWT-based authentication
-4. 🚫 Add rate limiting & abuse protection
-5. 📊 Monitoring with Prometheus + Grafana
-6. ⚙️ CI/CD for automated testing and deploys
+### 🚀 Core Application Files
+
+| File               | Purpose                                    |
+| ------------------ | ------------------------------------------ |
+| `main.py`          | FastAPI app setup, middleware, router init |
+| `requirements.txt` | Project dependencies                       |
+| `Dockerfile`       | Container build instructions               |
+| `render.yml`       | Deployment config for Render               |
 
 ---
 
-## 🧼 Developer Tips
+### 🛣️ `/routes` – API Layer
 
-### Clear `__pycache__` if issues occur:
+* `translation_routes.py`
 
-```bash
-find . -type d -name "__pycache__" -exec rm -r {} +
-```
+  * `POST /translate`: Single translation
+  * `POST /translate/bulk`: Bulk (max 50)
+  * `GET /history`: Fetch logs
+* `health_routes.py`
 
-**On Windows:**
+  * `GET /health`: Check service + DB status
 
-```powershell
-Get-ChildItem -Recurse -Include __pycache__ | Remove-Item -Recurse -Force
-```
+---
+
+### 🏢 `/services` – Business Logic Layer
+
+* `translation_service.py`
+
+  * Multi-language logic
+  * UUID tracking
+  * Mock translation (Google Translate ready)
+* `database_service.py`
+
+  * SQLite connection pool
+  * Schema management + query ops
+
+---
+
+### 📊 `/models` – Pydantic Models
+
+| Model                     | Purpose                    |
+| ------------------------- | -------------------------- |
+| `TranslationRequest`      | Single translation input   |
+| `BulkTranslationRequest`  | Bulk input (1–50 max)      |
+| `TranslationResponse`     | Single output format       |
+| `BulkTranslationResponse` | Response for batch request |
+| `ErrorResponse`           | Consistent error structure |
+
+---
+
+### 🔧 `/utils` – Utilities
+
+* `lang_helper.py`:
+  Language detection, code validation, registry
+* `db_logger.py`:
+  Transaction logging
+* `validation_utils.py`:
+  Sanitization, length validation
+
+---
+
+### ⚙️ `/config` – Environment Configuration
+
+| File          | Use                              |
+| ------------- | -------------------------------- |
+| `settings.py` | Env config, OpenAPI meta, limits |
+
+---
+
+### 🧪 `/tests` – Quality Assurance
+
+* `test_translation_service.py`: Translation logic unit tests
+* `test_import.py`: Module import checks
+
+---
+
+### 📚 `/docs` – Documentation
+
+* Accessible at `/docs` (Swagger) and `/redoc`
+* Markdown + autogenerated API docs
+
+---
+
+## ⚙️ Technical Specifications
+
+| Stack      | Tool                |
+| ---------- | ------------------- |
+| Framework  | FastAPI 0.110.0     |
+| Server     | Uvicorn 0.24.0      |
+| Validation | Pydantic 2.5.0      |
+| DB         | SQLite (file-based) |
+| Container  | Docker              |
+| Deployment | Render              |
+
+---
+
+## ✅ API Capabilities
+
+| Feature            | Status |
+| ------------------ | ------ |
+| Single Translation | ✅      |
+| Bulk Translation   | ✅      |
+| History Tracking   | ✅      |
+| Health Monitoring  | ✅      |
+| Google API Ready   | ✅      |
+| Input Validation   | ✅      |
+| Auto API Docs      | ✅      |
+| CORS Support       | ✅      |
+
+---
+
+## 🚀 Deployment & Operations
+
+* Dockerized: `docker-compose.yml`, `Dockerfile`
+* Ready for Render: `render.yml` config
+* Health checks for uptime monitoring
+* Structured logs for debugging
+* Environment-based flexibility
+
+---
+
+## 🛠️ Production Readiness
+
+✔️ Scalable Architecture
+✔️ Logging & Monitoring
+✔️ Containerization
+✔️ CI/CD-ready
+✔️ Google Translate Integration Ready
+✔️ Secure & Validated Inputs
+✔️ Full Swagger Documentation
 
 ---
 
 <div align="center">
 
-## ❤️ Built for Project Udaan
+### ✅ Built with FastAPI • Designed for Scale • Easy to Extend
 
-**Modular • Minimal • Maintainable**
-
----
-
-**Give it a ⭐ if you found this helpful!**
+🌟 *If you find this useful, give it a ⭐ and share feedback!*
 
 </div>
 
----
+
